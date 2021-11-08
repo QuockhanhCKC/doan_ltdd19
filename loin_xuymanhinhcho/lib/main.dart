@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'isloading.dart';
+import 'loginFail.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +26,11 @@ class loginPage extends StatefulWidget {
   State<loginPage> createState() => _loginPageState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _loginPageState extends State<loginPage>
+    with SingleTickerProviderStateMixin {
   final email = TextEditingController();
   final password = TextEditingController();
+  final bool isloading = false;
   bool kiemtraLogin() {
     if (email.text == password.text) {
       return true;
@@ -74,6 +78,7 @@ class _loginPageState extends State<loginPage> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
+            
             Padding(
               padding: EdgeInsets.all(15),
               child: Container(
@@ -119,13 +124,11 @@ class _loginPageState extends State<loginPage> {
                           MaterialPageRoute(
                               builder: (context) => isloadingPage()),
                         )
-                      : showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Text('nhap thong tin sai'),
-                            );
-                          });
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => loginfailPage()),
+                        );
                 },
               ),
             ),
